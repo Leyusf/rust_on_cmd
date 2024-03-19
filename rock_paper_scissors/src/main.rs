@@ -1,6 +1,7 @@
 use std::io;
 use rand::Rng;
 
+/// 经典的石头剪刀布游戏, 玩家和电脑进行游戏
 fn main() {
     println!("游戏开始了");
     loop {
@@ -9,14 +10,19 @@ fn main() {
     }
 }
 
+/// 石头 剪刀 布 的枚举类型
 #[derive(Debug)]
 enum Pose {
+    /// 石头
     Rock,
+    /// 布
     Paper,
+    /// 剪刀
     Scissors
 }
 
 impl Pose {
+    /// 获取随机生成的电脑出拳的结果
     fn get(id: u32) -> Self{
         match id {
             0 => Pose::Rock,
@@ -27,7 +33,7 @@ impl Pose {
     }
 }
 
-
+/// 比较电脑和玩家的出拳类型,确定输赢
 fn compare(computer: Pose, player:Pose) -> () {
     match (computer, player) {
         (Pose::Rock, Pose::Rock) | (Pose::Paper, Pose::Paper) | (Pose::Scissors, Pose::Scissors) => println!("平局"),
@@ -36,7 +42,7 @@ fn compare(computer: Pose, player:Pose) -> () {
     }
 }
 
-
+/// 单轮游戏从这里开始
 fn round() {
     let user_pose: Pose;
     let rand_num = rand::thread_rng().gen_range(0..3) as u32;
@@ -52,7 +58,7 @@ fn round() {
     compare(computer_pose, user_pose);
 }
 
-
+/// 用户输入
 fn read_use_pose() -> Result<Pose, &'static str> {
     let mut input_string = String::new();
     io::stdin().read_line(&mut input_string).map_err(|_| "Fail to input")?;
