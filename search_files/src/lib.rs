@@ -5,6 +5,9 @@ use clap::Parser;
 use regex;
 use regex::{Error, Regex};
 
+/// 读取命令行共有三个参数 -r -p -d
+/// 分别代表了 搜索的起点目录 匹配模式 搜索的最大深度
+/// 默认值为 "当前目录" "\*.\*" "5"
 #[derive(Parser, Debug)]
 #[command(version, about)]
 pub struct Opt{
@@ -34,16 +37,17 @@ impl Opt{
         self.deep
     }
 
+    ///生成一个正则匹配器并返回
     pub fn get_pattern_regex(&self) -> Result<Regex, Error> {
-        let mut p = self.pattern.replace("*", "[A-Za-z0-9]|[\\|/]*");
-        p = p.replace(".", "\\.");
+        let mut p = self.pattern.replace("*", "([A-Za-z0-9]|[\\|/])*");
         p = p.replace("\\", "\\\\");
-        p = p.replace("/", "/");
-        p = format!("^{}$", p);
+        p = p.replace(".", "\\.");
+        p = format!(".*{}.*", p);
         Regex::new(&p)
     }
 }
 
+/// 递归的搜索文件，结果保存再results的动态列表里
 pub fn search_files(root: &Path, regex: &Regex, max_deep:u32, cur_deep:u32, results: &mut Vec<PathBuf>) -> () {
     if cur_deep >= max_deep {
         ()

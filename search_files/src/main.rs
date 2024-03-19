@@ -3,7 +3,7 @@ use regex::Regex;
 use search_files::{Opt, search_files};
 
 /// 用一个简单的文件搜索器，允许用户搜索特定类型的文件或基于文件名的模式匹配。
-/// 使用: search -r {搜索的根目录} -p {文件名}
+/// 使用: search -r {搜索的根目录} -p {文件名/模式}
 /// 模式匹配遵从 正则匹配格式
 fn main() -> Result<(), &'static str> {
     let opt = Opt::new();
