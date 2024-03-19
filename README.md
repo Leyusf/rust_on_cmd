@@ -12,3 +12,6 @@
 
 ## search files
 文件搜索器,可以通过 -r -p -d 设置搜索的根目录，匹配的模式和搜索的最大深度
+
+## rock paper scissors number
+用户和电脑猜拳的游戏,通过输入R P S 来进行互动
