@@ -15,3 +15,6 @@
 
 ## rock paper scissors number
 用户和电脑猜拳的游戏,通过输入R P S 来进行互动
+
+## rgrep
+类似于grep的文件内容搜索工具,通过 rgrep <pattern> <path>使用
